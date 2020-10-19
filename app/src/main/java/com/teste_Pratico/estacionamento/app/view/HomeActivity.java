@@ -81,8 +81,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 if(status.equals("consulta")){
                     Intent i = null;
-                    i = new Intent(HomeActivity.this, ListVeiculos_EstacionadosActivity.class);
-                    ListVeiculos_EstacionadosActivity.statusList("estao");
+                    i = new Intent(HomeActivity.this, List_VeiculosActivity.class);
+                    List_VeiculosActivity.statusList("estao");
                     startActivity(i);
                 }else{
 
@@ -97,8 +97,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 if(status.equals("consulta")){
                     Intent i = null;
-                    i = new Intent(HomeActivity.this, ListVeiculos_EstacionadosActivity.class);
-                    ListVeiculos_EstacionadosActivity.statusList("sairam");
+                    i = new Intent(HomeActivity.this, List_VeiculosActivity.class);
+                    List_VeiculosActivity.statusList("sairam");
                     startActivity(i);
                 }else{
 

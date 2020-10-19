@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface VeiculoServise {
     @POST("veiculo/cadastrar")
@@ -19,4 +20,10 @@ public interface VeiculoServise {
 
     @GET("veiculo/estacionamentosFinalizados")
     Call<List<Movimentacao>> getVeiculosNaoEstacionados();
+
+    @GET("veiculo/VeivulosEstacionadosPlaca?")
+    Call<List<VeiculoEstacionado_DTO>> getVeiculosEstacionados_placa(@Query("placa") String placa);
+
+    @GET("veiculo/VeivulosEstacionadosModelo?")
+    Call<List<VeiculoEstacionado_DTO>> getVeiculosEstacionados_Modelo(@Query("modelo") String modelo);
 }
