@@ -67,6 +67,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 List_VeiculosActivity.statusList("estao - edicao");
                 startActivity(i);
                 break;
+            case R.id.finalizacao:
+                i = new Intent(HomeActivity.this, List_VeiculosActivity.class);
+                List_VeiculosActivity.statusList("estao - finalizacao");
+                startActivity(i);
+                break;
         }
     }
 

@@ -70,9 +70,9 @@ public class List_VeiculosActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
+        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao") || STATUS_LIST.equals("estao - finalizacao")) {
             getVeiculosEstacionados();
-            if (STATUS_LIST.equals("estao - edicao")) {
+            if (STATUS_LIST.equals("estao - edicao")|| STATUS_LIST.equals("estao - finalizacao")) {
                 Toast.makeText(List_VeiculosActivity.this, "SELECIONE O VEICULO DESEJADO", Toast.LENGTH_SHORT).show();
             }
         } else if (STATUS_LIST.equals("sairam")) {
@@ -94,13 +94,13 @@ public class List_VeiculosActivity extends AppCompatActivity {
                     String placa = editPlaca.getText().toString().toUpperCase();
 
                     if (!placa.equals("")) {
-                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao") || STATUS_LIST.equals("estao - finalizacao")) {
                             getVeiculosEstacionados_placa(placa);
                         } else if (STATUS_LIST.equals("sairam")) {
                             getVeiculos_N_Estacionados_placa(placa);
                         }
                     } else {
-                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao") || STATUS_LIST.equals("estao - finalizacao")) {
                             getVeiculosEstacionados();
                         } else if (STATUS_LIST.equals("sairam")) {
                             getVeiculosNaoEstacionados();
@@ -131,13 +131,13 @@ public class List_VeiculosActivity extends AppCompatActivity {
                     String modelo = editModelo.getText().toString();
 
                     if (!modelo.equals("")) {
-                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao") || STATUS_LIST.equals("estao - finalizacao")) {
                             getVeiculosEstacionados_modelo(modelo);
                         } else if (STATUS_LIST.equals("sairam")) {
                             getVeiculos_N_Estacionados_modelo(modelo);
                         }
                     } else {
-                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao") || STATUS_LIST.equals("estao - finalizacao")) {
                             getVeiculosEstacionados();
                         } else if (STATUS_LIST.equals("sairam")) {
                             getVeiculosNaoEstacionados();
@@ -297,6 +297,11 @@ public class List_VeiculosActivity extends AppCompatActivity {
                                     MSG = "Deseja alterar os dados do veiculo: " + veiculoEstacionado_dto.getModelo();
                                     STATUS = "editar";
                                     msgAlert(TITULO, MSG, STATUS);
+                                } else if(STATUS_LIST.equals("estao - finalizacao")){
+                                    TITULO = "Finalizar Estacionamento";
+                                    MSG = "Deseja finalizar o estacionamento do veiculo: " + veiculoEstacionado_dto.getModelo();
+                                    STATUS = "finalizar";
+                                    msgAlert(TITULO, MSG, STATUS);
                                 }
                             }
 
@@ -385,6 +390,10 @@ public class List_VeiculosActivity extends AppCompatActivity {
                     Intent intent = new Intent(List_VeiculosActivity.this, Cadastro_VeiculoActivity.class);
                     intent.putExtra("veiculo", veiculoEstacionado_dto);
                     Cadastro_VeiculoActivity.statusForm("alterar");
+                    startActivity(intent);
+                }else if (status.equals("finalizar")){
+                    Intent intent = new Intent(List_VeiculosActivity.this, Finalizar_EstacionamentoActivity.class);
+                    intent.putExtra("veiculo", veiculoEstacionado_dto);
                     startActivity(intent);
                 }
 

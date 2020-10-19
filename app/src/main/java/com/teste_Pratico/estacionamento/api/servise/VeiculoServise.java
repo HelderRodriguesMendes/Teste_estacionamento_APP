@@ -37,4 +37,7 @@ public interface VeiculoServise {
 
     @PUT("veiculo/alterarVeiculoEstacionado/{id}")
     Call<List<VeiculoEstacionado_DTO>> alterar(@Path("id") Long id, @Body VeiculoEstacionado_DTO veiculo);
+
+    @PUT("veiculo/finalizarEstacionamento/{id}")
+    Call<Movimentacao> finalizar(@Path("id") Long id, @Body Movimentacao veiculo);
 }
