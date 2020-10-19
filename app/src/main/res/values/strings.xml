@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Estacionamento</string>
+
+    <string name="btnOK">OK</string>
+
+
+    <string name="entrar">Entrar</string>
+    <string name="placa">Placa...</string>
+    <string name="modelo_HINT">Modelo...</string>
+    <string name="cadastrar_veiculo_TITULO">Cadastrar Veiculo</string>
+</resources>

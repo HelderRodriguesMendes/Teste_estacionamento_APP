@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.view.Cadastro_VeiculoActivity">
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/cadastrar_veiculo_TITULO"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtPlaca"
+        android:layout_width="227dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="70dp"
+        android:ems="10"
+        android:hint="@string/placa"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/txtTitulo"
+        app:layout_constraintStart_toStartOf="@+id/txtTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
+
+    <EditText
+        android:id="@+id/txtModelo"
+        android:layout_width="228dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/modelo_HINT"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/txtPlaca"
+        app:layout_constraintStart_toStartOf="@+id/txtPlaca"
+        app:layout_constraintTop_toBottomOf="@+id/txtPlaca" />
+
+    <ImageView
+        android:id="@+id/btnSalvar"
+        android:layout_width="79dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/txtModelo"
+        app:layout_constraintTop_toBottomOf="@+id/txtModelo"
+        app:srcCompat="@android:drawable/ic_menu_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
