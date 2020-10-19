@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teste_Pratico.estacionamento.R;
+import com.teste_Pratico.estacionamento.app.model.DTO.VeiculoEstacionado_DTO;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View view) {
         Intent i;
@@ -47,6 +49,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.cadastro:
                 i = new Intent(this, Cadastro_VeiculoActivity.class);
+                VeiculoEstacionado_DTO v = new VeiculoEstacionado_DTO();
+                i.putExtra("veiculo", v);
+                Cadastro_VeiculoActivity.statusForm("cadastrar");
                 startActivity(i);
                 break;
             case R.id.consulta:
@@ -56,6 +61,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 OP1 = "Estão";
                 OP2 = "Sairam";
                 msgAlert(TITULO, MSG, STATUS, OP1, OP2);
+                break;
+            case R.id.edicao:
+                i = new Intent(HomeActivity.this, List_VeiculosActivity.class);
+                List_VeiculosActivity.statusList("estao - edicao");
+                startActivity(i);
                 break;
         }
     }

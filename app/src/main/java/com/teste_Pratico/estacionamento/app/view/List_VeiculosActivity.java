@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class List_VeiculosActivity extends AppCompatActivity {
 
     static String STATUS_LIST;
 
-    String MSG;
+    String TITULO = "", MSG = "", STATUS = "";
 
     Retrofit_URL retrofit = new Retrofit_URL();
 
@@ -55,6 +56,8 @@ public class List_VeiculosActivity extends AppCompatActivity {
 
     List<VeiculoEstacionado_DTO> listaVeiculos = new ArrayList<>();
     List<Movimentacao> listaVeiculosSairam = new ArrayList<>();
+
+    VeiculoEstacionado_DTO veiculoEstacionado_dto = new VeiculoEstacionado_DTO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +70,11 @@ public class List_VeiculosActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        if (STATUS_LIST.equals("estao")) {
+        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
             getVeiculosEstacionados();
+            if (STATUS_LIST.equals("estao - edicao")) {
+                Toast.makeText(List_VeiculosActivity.this, "SELECIONE O VEICULO DESEJADO", Toast.LENGTH_SHORT).show();
+            }
         } else if (STATUS_LIST.equals("sairam")) {
             getVeiculosNaoEstacionados();
         }
@@ -87,16 +93,16 @@ public class List_VeiculosActivity extends AppCompatActivity {
                     //toUpperCase() converte letras menusculas para maiuscolas
                     String placa = editPlaca.getText().toString().toUpperCase();
 
-                    if(!placa.equals("")){
-                        if (STATUS_LIST.equals("estao")) {
+                    if (!placa.equals("")) {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
                             getVeiculosEstacionados_placa(placa);
                         } else if (STATUS_LIST.equals("sairam")) {
-
+                            getVeiculos_N_Estacionados_placa(placa);
                         }
-                    }else{
-                        if (STATUS_LIST.equals("estao")) {
+                    } else {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
                             getVeiculosEstacionados();
-                        }else if (STATUS_LIST.equals("sairam")) {
+                        } else if (STATUS_LIST.equals("sairam")) {
                             getVeiculosNaoEstacionados();
                         }
                     }
@@ -124,16 +130,16 @@ public class List_VeiculosActivity extends AppCompatActivity {
 
                     String modelo = editModelo.getText().toString();
 
-                    if(!modelo.equals("")){
-                        if (STATUS_LIST.equals("estao")) {
+                    if (!modelo.equals("")) {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
                             getVeiculosEstacionados_modelo(modelo);
                         } else if (STATUS_LIST.equals("sairam")) {
-
+                            getVeiculos_N_Estacionados_modelo(modelo);
                         }
-                    }else{
-                        if (STATUS_LIST.equals("estao")) {
+                    } else {
+                        if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao")) {
                             getVeiculosEstacionados();
-                        }else if (STATUS_LIST.equals("sairam")) {
+                        } else if (STATUS_LIST.equals("sairam")) {
                             getVeiculosNaoEstacionados();
                         }
                     }
@@ -189,9 +195,49 @@ public class List_VeiculosActivity extends AppCompatActivity {
         });
     }
 
+    public void getVeiculos_N_Estacionados_placa(String placa) {
+        System.out.println("veio para a placa");
+        Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculos_N_Estacionados_placa(placa);
+        call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(Call<List<VeiculoEstacionado_DTO>> call, Response<List<VeiculoEstacionado_DTO>> response) {
+                if (response.isSuccessful()) {
+                    listaVeiculos = response.body();
+                    listarVeiculos(listaVeiculos);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<VeiculoEstacionado_DTO>> call, Throwable t) {
+                System.out.println("não busco: " + t.getMessage());
+            }
+        });
+    }
+
     public void getVeiculosEstacionados_modelo(String modelo) {
         System.out.println("veio para a placa");
         Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculosEstacionados_Modelo(modelo);
+        call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(Call<List<VeiculoEstacionado_DTO>> call, Response<List<VeiculoEstacionado_DTO>> response) {
+                if (response.isSuccessful()) {
+                    listaVeiculos = response.body();
+                    listarVeiculos(listaVeiculos);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<VeiculoEstacionado_DTO>> call, Throwable t) {
+                System.out.println("não busco: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getVeiculos_N_Estacionados_modelo(String modelo) {
+        System.out.println("veio para a placa");
+        Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculos_N_Estacionados_Modelo(modelo);
         call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -244,8 +290,14 @@ public class List_VeiculosActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                VeiculoEstacionado_DTO veiculoEstacionado_dto = listVeiculos.get(position);
+                                veiculoEstacionado_dto = listVeiculos.get(position);
                                 //click curto
+                                if (STATUS_LIST.equals("estao - edicao")) {
+                                    TITULO = "ALTERAR VEICULO";
+                                    MSG = "Deseja alterar os dados do veiculo: " + veiculoEstacionado_dto.getModelo();
+                                    STATUS = "editar";
+                                    msgAlert(TITULO, MSG, STATUS);
+                                }
                             }
 
                             @Override
@@ -329,8 +381,12 @@ public class List_VeiculosActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-
-                // se clica não
+                if (status.equals("editar")) {
+                    Intent intent = new Intent(List_VeiculosActivity.this, Cadastro_VeiculoActivity.class);
+                    intent.putExtra("veiculo", veiculoEstacionado_dto);
+                    Cadastro_VeiculoActivity.statusForm("alterar");
+                    startActivity(intent);
+                }
 
                 alertDialog.dismiss();
             }
