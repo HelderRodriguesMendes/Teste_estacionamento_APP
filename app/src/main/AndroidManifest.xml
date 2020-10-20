@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".app.view.Finalizar_EstacionamentoActivity"></activity>
-        <activity android:name=".app.view.List_VeiculosActivity" />
-        <activity android:name=".app.view.Cadastro_VeiculoActivity" />
+        <activity android:name=".app.view.Finalizar_EstacionamentoActivity"
+            android:parentActivityName=".app.view.HomeActivity"></activity>
+        <activity android:name=".app.view.List_VeiculosActivity"
+            android:parentActivityName=".app.view.HomeActivity"
+            />
+        <activity android:name=".app.view.Cadastro_VeiculoActivity"
+            android:parentActivityName=".app.view.HomeActivity"/>
         <activity android:name=".app.view.HomeActivity" />
         <activity android:name=".app.view.Login_Activity">
             <intent-filter>

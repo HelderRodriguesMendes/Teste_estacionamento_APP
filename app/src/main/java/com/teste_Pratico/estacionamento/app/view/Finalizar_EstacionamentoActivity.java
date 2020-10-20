@@ -48,6 +48,7 @@ public class Finalizar_EstacionamentoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finalizar__estacionamento);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtmodelo = findViewById(R.id.txt_modelo);
         txtplaca = findViewById(R.id.txt_placa);
@@ -80,6 +81,7 @@ public class Finalizar_EstacionamentoActivity extends AppCompatActivity {
         Call<Movimentacao> call = compraService.finalizar(veiculoFinalizado.getId(), veiculoFinalizado);
 
         call.enqueue(new Callback<Movimentacao>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<Movimentacao> call, Response<Movimentacao> response) {
                 if(response.isSuccessful()){

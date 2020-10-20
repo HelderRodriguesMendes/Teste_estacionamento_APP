@@ -51,6 +51,7 @@ public class Cadastro_VeiculoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro__veiculo);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         titulo = findViewById(R.id.txtTitulo);
         txtPlaca = findViewById(R.id.txtPlaca);
@@ -162,6 +163,7 @@ public class Cadastro_VeiculoActivity extends AppCompatActivity {
     public void preencherCampus(){
         txtPlaca.setText(veiculoEdicao.getPlaca());
         txtModelo.setText(veiculoEdicao.getModelo());
+        titulo.setText("Alterar Veiculo");
     }
 
     public VeiculoEstacionado_DTO alterarObjeto(){

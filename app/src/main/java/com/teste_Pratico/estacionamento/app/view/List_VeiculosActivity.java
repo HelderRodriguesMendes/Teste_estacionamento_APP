@@ -43,7 +43,7 @@ import retrofit2.Response;
 public class List_VeiculosActivity extends AppCompatActivity {
 
     EditText editPlaca, editModelo;
-    TextView tituloHora;
+    TextView tituloHora, txtTituloList;
     RecyclerView recyclerView;
 
     static String STATUS_LIST;
@@ -63,12 +63,15 @@ public class List_VeiculosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_veiculos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editPlaca = findViewById(R.id.editTextPlaca);
         editModelo = findViewById(R.id.editTextModelo);
         tituloHora = findViewById(R.id.txtTituloHora);
+        txtTituloList = findViewById(R.id.txtTituloList);
 
         recyclerView = findViewById(R.id.recyclerView);
+
 
         if (STATUS_LIST.equals("estao") || STATUS_LIST.equals("estao - edicao") || STATUS_LIST.equals("estao - finalizacao")) {
             getVeiculosEstacionados();
@@ -76,6 +79,7 @@ public class List_VeiculosActivity extends AppCompatActivity {
                 Toast.makeText(List_VeiculosActivity.this, "SELECIONE O VEICULO DESEJADO", Toast.LENGTH_SHORT).show();
             }
         } else if (STATUS_LIST.equals("sairam")) {
+            txtTituloList.setText("Estacionamentos finalizados");
             getVeiculosNaoEstacionados();
         }
 
