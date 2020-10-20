@@ -51,6 +51,8 @@ public class Cadastro_VeiculoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro__veiculo);
+
+        //EXIBE O BOTÃO VOLTAR <--
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         titulo = findViewById(R.id.txtTitulo);
@@ -91,13 +93,10 @@ public class Cadastro_VeiculoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<VeiculoEstacionado_DTO>> call, Response<List<VeiculoEstacionado_DTO>> response) {
                 if(response.isSuccessful()){
-                    System.out.println("alterou");
                     TITULO = "Alterar veiculo";
                     MSG = "Alteração realizada com sucesso";
                     STATUS = "alterar";
                     msgSucesso(TITULO, MSG, STATUS);
-                }else{
-                    System.out.println("nao altero");
                 }
             }
 

@@ -63,6 +63,8 @@ public class List_VeiculosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_veiculos);
+
+        //EXIBE O BOTÃO VOLTAR <--
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editPlaca = findViewById(R.id.editTextPlaca);
@@ -180,7 +182,6 @@ public class List_VeiculosActivity extends AppCompatActivity {
     }
 
     public void getVeiculosEstacionados_placa(String placa) {
-        System.out.println("veio para a placa");
         Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculosEstacionados_placa(placa);
         call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -200,7 +201,6 @@ public class List_VeiculosActivity extends AppCompatActivity {
     }
 
     public void getVeiculos_N_Estacionados_placa(String placa) {
-        System.out.println("veio para a placa");
         Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculos_N_Estacionados_placa(placa);
         call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -220,7 +220,6 @@ public class List_VeiculosActivity extends AppCompatActivity {
     }
 
     public void getVeiculosEstacionados_modelo(String modelo) {
-        System.out.println("veio para a placa");
         Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculosEstacionados_Modelo(modelo);
         call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -240,7 +239,6 @@ public class List_VeiculosActivity extends AppCompatActivity {
     }
 
     public void getVeiculos_N_Estacionados_modelo(String modelo) {
-        System.out.println("veio para a placa");
         Call<List<VeiculoEstacionado_DTO>> call = veiculoServise.getVeiculos_N_Estacionados_Modelo(modelo);
         call.enqueue(new Callback<List<VeiculoEstacionado_DTO>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)

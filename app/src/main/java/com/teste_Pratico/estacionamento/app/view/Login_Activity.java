@@ -51,8 +51,6 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void logar(String email, String senha){
-        System.out.println("LOGIN E SENHA: " + email + " " + senha);
-
         UsuarioService usuarioService = retrofit.URLBase().create(UsuarioService.class);
         Call<Usuario> call = usuarioService.logar(email, senha);
         call.enqueue(new Callback<Usuario>() {
@@ -60,8 +58,6 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 Usuario usuario = response.body();
-
-                System.out.println("RESPOSTA DA API: " + usuario.getUsuario());
 
                 if(usuario.getUsuario().equals("Acesso altorizado")){
                     Toast.makeText(Login_Activity.this, usuario.getUsuario(), Toast.LENGTH_SHORT).show();
